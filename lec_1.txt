@@ -1,0 +1,52 @@
+show tables;
+# 1. знайти всі машини старші за 2000 р.
+SELECT * from cars where year > 2000;
+
+# 2. знайти всі машини молодші 2015 р.
+SELECT * from cars where year < 2015;
+
+# 3. знайти всі машини 2008, 2009, 2010 років
+SELECT * from cars where year=2009 or year=2008 or year=2010;
+
+# 4. знайти всі машини не з цих років 2008, 2009, 2010
+SELECT * from cars where not year = 2008 and not year=2009 and not year=2010;
+
+# 5. знайти всі машини де year==price
+SELECT * from cars where year=price;
+
+# 6. знайти всі машини bmw старші за 2014 р.
+SELECT * from cars where model = 'bmw' and year > 2014;
+
+# 7. знайти всі машини audi молодші 2014 р.
+SELECT * from cars where model = 'audi' and year < 2014;
+
+# 8. знайти перші 5 машин
+SELECT * from cars limit 5;
+
+# 9. знайти останні 5 машин
+SELECT * FROM cars order by id DESC limit 5 ;
+
+# 10. найти среднее арифметическое цен машин модели KIA
+SELECT avg(price) as average from cars where model = 'KIA';
+
+# 11. найти среднее арифметическое цен каждой машины
+SELECT model, avg(price)  as average from cars group by model order by average desc ;
+
+# 12. посчитать количество каждой марки машин
+SELECT model, count(*) as model_count from cars group by model order by model_count desc;
+
+# 13. найти марку машины количество которых больше всего
+SELECT model, count(*) as model_count from cars group by model order by model_count desc limit 1;
+
+# 14. знайти марку машини в назві яких друга та передостання буква "a"
+SELECT * from cars where model like '_a%a_';
+
+# 15. знайти всі машини назва моделі яких більше за 8 символів
+SELECT * from cars where LENGTH(model) > 8;
+
+# 16. ***знайти машини ціна котрих більше ніж ціна середнього арифметичного всіх машин
+SELECT
+    model, price
+from
+    cars
+where price > (SELECT avg(price) as average from cars);
